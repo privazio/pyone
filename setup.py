@@ -35,12 +35,14 @@ setup(
     ],
 
     keywords='cloud opennebula xmlrpc bindings',
-    packages=['pyone'],
+    packages=['pyone', 'pyone.bindings'],
     install_requires=['PyXB', 'dicttoxml'],
-
     package_data={
         'pyone': ['xsd/*.xsd'],
     },
-
+    extras_require={
+        'dev': ['check-manifest'],
+        'test': ['coverage'],
+    },
     test_suite="tests"
 )

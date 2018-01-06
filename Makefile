@@ -30,11 +30,15 @@ schemas = acct.xsd \
 
 VPATH = src: pyone/xsd
 
-all: pyone/bindings/__init__.py
+all: pyone/bindings/__init__.py 
 
 pyone/bindings/__init__.py: $(schemas)
 	pyxbgen -m pyone.bindings.__init__ -u $^
 
-.PHONY: clean
+.PHONY: clean build
 clean: 
 	rm -f pyone/bindings/*.py
+	rm -rf build dist
+
+dist:
+	python setup.py sdist bdist_wheel
