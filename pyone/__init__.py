@@ -37,10 +37,11 @@ class OneServer(xmlrpclib.ServerProxy):
     # Will also configure the socket timeout
     #
 
-    def __init__(self, uri, session, timeout=30, **options):
+    def __init__(self, uri, session, timeout=None, **options):
         self.__session = session
-        # note that this will affect other classes using sockets too.
-        socket.setdefaulttimeout(timeout)
+        if timeout:
+            # note that this will affect other classes using sockets too.
+            socket.setdefaulttimeout(timeout)
         xmlrpclib.ServerProxy.__init__(self, uri, **options)
 
     #
