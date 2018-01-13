@@ -3,7 +3,7 @@ Open Nebula Python Bindings
 
 This is an implementation of Open Nebula XML-RPC bindings in Python.
 
-The main goals of this library is **completeness and maintainability**.
+The main goals of this library are **completeness and maintainability**.
 
 Proxies and generators have been used whenever possible to minimize the impact of API updates, ensuring that the distributed xsd files are the only update required when new API versions are released.
 

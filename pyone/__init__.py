@@ -80,7 +80,7 @@ class OneServer(xmlrpclib.ServerProxy):
             if isinstance(ret, basestring):
                 # detect xml
                 if ret[0] == '<':
-                    # dirty-patch the namespace of PyXB won't recognize the type
+                    # dirty-patch the namespace or PyXB won't recognize the type
                     nsXml = "<R xmlns='http://opennebula.org/XMLSchema'>"+ret+"</R>"
                     nsDom = dom.parseString(nsXml)
                     return bindings.CreateFromDOM(nsDom.documentElement.childNodes[0])
