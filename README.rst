@@ -34,8 +34,7 @@ Compatibility
 -------------
 
 * PyONE is compatible with OpenNebula v5.4
-* It should be easy to backport PyOne to any OpenNebula version with XML-RPC API that
-includes XML Schema Definition (XSD) files.
+* It should be easy to backport PyOne to any OpenNebula version with XML-RPC API that includes XML Schema Definition (XSD) files.
 
 Requirements
 ------------
