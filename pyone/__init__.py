@@ -17,6 +17,7 @@ import xmlrpclib
 import dicttoxml
 import xml.dom.minidom as dom
 import socket
+import logging
 
 
 #
@@ -38,6 +39,9 @@ class OneApiException(OneException):
 class OneInternalException(OneException):
     pass
 
+# Prevent warnings from PyXB about missing logger handler:
+# No handlers could be found for logger "pyxb.binding.basis"
+logging.getLogger("pyxb.binding.basis").addHandler(logging.NullHandler())
 
 ##
 #
