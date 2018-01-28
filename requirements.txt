@@ -1,2 +1,2 @@
-PyXB >= 1.2.6
+PyXB ~= 1.2.7
 dicttoxml >= 1.7.4
