@@ -3,3 +3,4 @@ pyone/bindings
 build
 dist
 pyone.egg-info
+*.pyc
