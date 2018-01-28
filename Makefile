@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Use full path to ensure virtualenv compatibility
+PYTHON = $(shell which python) 
+PYXBGEN = $(shell which pyxbgen) 
+
 schemas = acct.xsd \
 	cluster_pool.xsd \
 	cluster.xsd \
@@ -46,7 +50,7 @@ VPATH = src: pyone/xsd
 all: pyone/bindings/__init__.py
 
 pyone/bindings/__init__.py: $(schemas)
-	pyxbgen -m pyone.bindings.__init__ -u $^
+	${PYTHON} ${PYXBGEN} -m pyone.bindings.__init__ -u $^
 
 .PHONY: clean build
 clean:
@@ -54,4 +58,4 @@ clean:
 	rm -rf build dist
 
 dist:
-	python setup.py sdist bdist_wheel
+	${PYTHON} setup.py sdist bdist_wheel
