@@ -73,7 +73,7 @@ class OneServer(xmlrpclib.ServerProxy):
         # cast parameters, make them one-friendly
         lparams = list(params)
         for i,param in enumerate(lparams):
-            lparams[i] = self.__cast(param)
+            lparams[i] = self.cast(param)
         params = tuple(lparams)
 
         params = ( self.__session, ) + params
@@ -89,7 +89,7 @@ class OneServer(xmlrpclib.ServerProxy):
     # Process the response from one XML-RPC server
     # will throw exceptions for each error condition
     # will bind returned xml to objects generated from xsd schemas
-    def __response(self,rawResponse):
+    def __response(self, rawResponse):
         sucess = rawResponse[0]
         code = rawResponse[2]
 
@@ -127,15 +127,16 @@ class OneServer(xmlrpclib.ServerProxy):
     # dictionaries with root dictionary will be serialized as XML
     #
     # Structures will be turned into strings before being submitted.
-    def __cast(self,param):
 
+    @staticmethod
+    def cast(param):
         # if this is a structured type
         if isinstance(param, dict):
             if bool(param):
                 root = param.values()[0]
                 if isinstance(root, dict):
                     # We return this dictionary as XML
-                    return dicttoxml.dicttoxml(param)
+                    return dicttoxml.dicttoxml(param, root=False, attr_type=False)
                 else:
                     # We return this dictionary as attribute=value vector
                     ret = str()
