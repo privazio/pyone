@@ -20,7 +20,7 @@ testSession = "oneadmin:onepass"
 testEndpoint = 'https://192.168.121.93/RPC2'
 one = pyone.OneServer(testEndpoint, session=testSession, context=ssl._create_unverified_context())
 
-class TestPyOne(unittest.TestCase):
+class IntegrationTests(unittest.TestCase):
 
     def test_pool_info(self):
         hostpool = one.hostpool.info()
@@ -30,7 +30,7 @@ class TestPyOne(unittest.TestCase):
 
     def test_auth_error(self):
         with self.assertRaises(pyone.OneAuthenticationException):
-            xone = pyone.OneServer(testEndpoint,session="oneadmin:invalidpass",context=ssl._create_unverified_context())
+            xone = pyone.OneServer(testEndpoint, session="oneadmin:invalidpass", context=ssl._create_unverified_context())
             xone.hostpool.info()
 
     def test_market_info(self):
@@ -44,7 +44,7 @@ class TestPyOne(unittest.TestCase):
             one.invalid.api.call()
 
     def test_template_attribute_vector_parameter(self):
-        one.host.update(0,  {"LABELS": "HD"}, 1)
+        one.host.update(0,  {"LABELS": "HD,LOWPOWER"}, 1)
 
     def test_xml_template_parameter(self):
         one.host.update(1,
