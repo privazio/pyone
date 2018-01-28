@@ -141,7 +141,7 @@ class OneServer(xmlrpclib.ServerProxy):
                     # We return this dictionary as attribute=value vector
                     ret = str()
                     for k, v in param.iteritems():
-                        ret = ret + k + " = " + str(v) + str('\n')
+                        ret = ret + k + " = " + str('"') + str(v) + str('"') + str('\n')
                     return ret
             else:
                 raise OneException("Cannot cast empty dictionary")

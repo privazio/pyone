@@ -44,7 +44,7 @@ class IntegrationTests(unittest.TestCase):
             one.invalid.api.call()
 
     def test_template_attribute_vector_parameter(self):
-        one.host.update(0,  {"LABELS": "HD"}, 1)
+        one.host.update(0,  {"LABELS": "HD,LOWPOWER"}, 1)
 
     def test_xml_template_parameter(self):
         one.host.update(1,
