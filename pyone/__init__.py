@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import bindings
+import pyxb
 import xmlrpclib
 import dicttoxml
 import xml.dom.minidom as dom
@@ -42,6 +43,12 @@ class OneInternalException(OneException):
 # Prevent warnings from PyXB about missing logger handler:
 # No handlers could be found for logger "pyxb.binding.basis"
 logging.getLogger("pyxb.binding.basis").addHandler(logging.NullHandler())
+
+#
+# Set the default namespace to make DOM easier to handle.
+#
+
+pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(bindings.Namespace)
 
 ##
 #
@@ -98,10 +105,12 @@ class OneServer(xmlrpclib.ServerProxy):
             if isinstance(ret, basestring):
                 # detect xml
                 if ret[0] == '<':
-                    # dirty-patch the namespace or PyXB won't recognize the type
-                    nsXml = "<R xmlns='http://opennebula.org/XMLSchema'>"+ret+"</R>"
-                    nsDom = dom.parseString(nsXml)
-                    return bindings.CreateFromDOM(nsDom.documentElement.childNodes[0])
+                    # PyXB won't recognize the type if the namespace is not present
+                    # preliminary parsing to do the checks and add it
+                    doc = dom.parseString(ret)
+                    doc.documentElement.setAttribute('xmlns', 'http://opennebula.org/XMLSchema')
+                    # toDOM and CD_DATA is broken in PyXB until 1.2.7, so, will force SAX parsing
+                    return bindings.CreateFromDocument(doc.toxml())
             return ret;
 
         else:
