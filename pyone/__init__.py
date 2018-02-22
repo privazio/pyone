@@ -87,7 +87,7 @@ class OneServer(xmlrpclib.ServerProxy):
         methodname = "one." + methodname
         try:
             ret = xmlrpclib.ServerProxy._ServerProxy__request(self, methodname, params)
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             raise OneException(e)
 
         return self.__response(ret)
