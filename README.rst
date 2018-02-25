@@ -126,6 +126,22 @@ element and it will be translated to XML:
       }
     }, 1)
 
+When reading structured parameters such as TEMPLATE you can use the utility function
+one2dict that will transform it as an easier to handle python dictionary
+
+.. code:: python
+
+  from pyone.util import one2dict
+
+  host = one.host.info(0)
+  tdict = one2dict(host.TEMPLATE)
+  arch = tdict['TEMPLATE']['ARCH']
+
+This makes it possible to read a TEMPLATE as dictionary, modity it and use it as parameter
+for an update method.
+
+It is also possible to use the method toDOM provided by PYxB and read the template as DOM. 
+
 **Building from Source**
 
 Note that a Makefile is provided to generate the python bindings
