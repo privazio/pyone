@@ -37,3 +37,4 @@ class XmlTests(unittest.TestCase):
         m0 = marketpool.MARKETPLACE[0]
         self.assertEqual(m0.NAME, "OpenNebula Public")
 
+
