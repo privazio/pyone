@@ -50,7 +50,7 @@ setup(
 
     keywords='cloud opennebula xmlrpc bindings',
     packages=find_packages(),
-    install_requires=['PyXB', 'dicttoxml'],
+    install_requires=['PyXB', 'dicttoxml',"future ; python_version<'3.0'"],
     package_data={
         'pyone': ['xsd/*.xsd'],
     },
