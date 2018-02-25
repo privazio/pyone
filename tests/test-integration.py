@@ -16,6 +16,8 @@ import unittest
 import ssl
 import pyone
 
+from pyone.util import one2dict
+
 testSession = "oneadmin:onepass"
 testEndpoint = 'https://192.168.121.55/RPC2'
 one = pyone.OneServer(testEndpoint, session=testSession, context=ssl._create_unverified_context())
@@ -63,4 +65,10 @@ class IntegrationTests(unittest.TestCase):
         host = one.host.info(0)
         template = host.TEMPLATE.toDOM()
         arch = template.getElementsByTagName('ARCH')[0].firstChild.nodeValue
+        self.assertEqual(arch, 'x86_64')
+
+    def test_retrieve_template_as_dict(self):
+        host = one.host.info(0)
+        tdict = one2dict(host.TEMPLATE)
+        arch = tdict['TEMPLATE']['ARCH']
         self.assertEqual(arch, 'x86_64')
