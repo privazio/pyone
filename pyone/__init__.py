@@ -15,11 +15,11 @@
 import bindings
 import pyxb
 import xmlrpclib
-import dicttoxml
 import xml.dom.minidom as dom
 import socket
 import logging
 
+from util import dict2one
 
 #
 # Exceptions as defined in the XML-API reference
@@ -80,7 +80,7 @@ class OneServer(xmlrpclib.ServerProxy):
         # cast parameters, make them one-friendly
         lparams = list(params)
         for i,param in enumerate(lparams):
-            lparams[i] = self.cast(param)
+            lparams[i] = dict2one(param)
         params = tuple(lparams)
 
         params = ( self.__session, ) + params
@@ -130,29 +130,4 @@ class OneServer(xmlrpclib.ServerProxy):
             else:
                 raise OneException(message)
 
-    #
-    # This method will cast parameters to make them nebula friendly
-    # flat dictionaries will be turned into attribute=value vectors
-    # dictionaries with root dictionary will be serialized as XML
-    #
-    # Structures will be turned into strings before being submitted.
 
-    @staticmethod
-    def cast(param):
-        # if this is a structured type
-        if isinstance(param, dict):
-            if bool(param):
-                root = param.values()[0]
-                if isinstance(root, dict):
-                    # We return this dictionary as XML
-                    return dicttoxml.dicttoxml(param, root=False, attr_type=False)
-                else:
-                    # We return this dictionary as attribute=value vector
-                    ret = str()
-                    for k, v in param.iteritems():
-                        ret = ret + k + " = " + str('"') + str(v) + str('"') + str('\n')
-                    return ret
-            else:
-                raise OneException("Cannot cast empty dictionary")
-        else:
-            return param

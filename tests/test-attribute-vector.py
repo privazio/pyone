@@ -9,4 +9,4 @@ class AttributeVectorTests(unittest.TestCase):
             'MEMORY': '1024',
             'ATT1': 'value1'
             }
-        self.assertEqual(pyone.OneServer.cast(atts), '''NAME = "abc"\nATT1 = "value1"\nMEMORY = "1024"\n''')
+        self.assertEqual(pyone.util.dict2one(atts), '''NAME = "abc"\nATT1 = "value1"\nMEMORY = "1024"\n''')

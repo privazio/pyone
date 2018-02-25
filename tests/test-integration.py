@@ -56,7 +56,7 @@ class IntegrationTests(unittest.TestCase):
             }, 1)
 
     def test_empty_dictionary(self):
-        with self.assertRaises(pyone.OneException):
+        with self.assertRaises(Exception):
             one.host.update(0, {}, 1)
 
     def test_retrieve_template_as_DOM(self):
