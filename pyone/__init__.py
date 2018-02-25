@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import bindings
+from pyone import bindings
 import pyxb
-import xmlrpclib
+import xmlrpc.client
 import xml.dom.minidom as dom
 import socket
 import logging
 
-from util import dict2one
+from .util import dict2one
 
 #
 # Exceptions as defined in the XML-API reference
@@ -55,7 +55,7 @@ pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(bindings.Namespace)
 # XML-RPC OpenNebula Server
 # Slightly tuned ServerProxy
 #
-class OneServer(xmlrpclib.ServerProxy):
+class OneServer(xmlrpc.client.ServerProxy):
 
     #
     # Override the constructor to take the authentication or session
@@ -67,7 +67,7 @@ class OneServer(xmlrpclib.ServerProxy):
         if timeout:
             # note that this will affect other classes using sockets too.
             socket.setdefaulttimeout(timeout)
-        xmlrpclib.ServerProxy.__init__(self, uri, **options)
+        xmlrpc.client.ServerProxy.__init__(self, uri, **options)
 
     #
     # Override/patch the (private) request method to:
@@ -86,8 +86,8 @@ class OneServer(xmlrpclib.ServerProxy):
         params = ( self.__session, ) + params
         methodname = "one." + methodname
         try:
-            ret = xmlrpclib.ServerProxy._ServerProxy__request(self, methodname, params)
-        except xmlrpclib.Fault as e:
+            ret = xmlrpc.client.ServerProxy._ServerProxy__request(self, methodname, params)
+        except xmlrpc.client.Fault as e:
             raise OneException(e)
 
         return self.__response(ret)

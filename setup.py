@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Always prefer setuptools over distutils
-from setuptools import setup
+from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
 from os import path
@@ -49,7 +49,7 @@ setup(
     ],
 
     keywords='cloud opennebula xmlrpc bindings',
-    packages=['pyone', 'pyone.bindings'],
+    packages=find_packages(),
     install_requires=['PyXB', 'dicttoxml'],
     package_data={
         'pyone': ['xsd/*.xsd'],
