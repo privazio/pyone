@@ -137,7 +137,7 @@ one2dict that will transform it as an easier to handle python dictionary
   tdict = one2dict(host.TEMPLATE)
   arch = tdict['TEMPLATE']['ARCH']
 
-This makes it possible to read a TEMPLATE as dictionary, modity it and use it as parameter
+This makes it possible to read a TEMPLATE as dictionary, modify it and use it as parameter
 for an update method.
 
 It is also possible to use the method toDOM provided by PYxB and read the template as DOM. 
