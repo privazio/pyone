@@ -1,0 +1,10 @@
+language: python
+python:
+  - "2.7"
+  - "3.6"
+install:
+  - pip install -r requirements.txt 
+  - make
+  - python setup.py install
+# command to run tests
+script: python -m unittest test/test-[xda]*
