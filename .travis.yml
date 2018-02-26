@@ -7,4 +7,4 @@ install:
   - make
   - python setup.py install
 # command to run tests
-script: python -m unittest tests/test-[xda]*
+script: cd tests && python -m unittest test-xml test-attribute-vector test-dictionary
