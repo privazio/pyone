@@ -1,6 +1,5 @@
 import dicttoxml
 import xmltodict
-from future.utils import viewitems
 
 #
 # This function will cast parameters to make them nebula friendly
@@ -21,7 +20,7 @@ def dict2one(param):
             else:
                 # We return this dictionary as attribute=value vector
                 ret = str()
-                for (k, v) in viewitems(param):
+                for (k, v) in param.items():
                     ret = ret + k + " = " + str('"') + str(v) + str('"') + str('\n')
                 return ret
         else:
